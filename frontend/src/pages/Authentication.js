@@ -42,7 +42,9 @@ export async function action({ request, params }) {
     const resData = await response.json();
 
     localStorage.setItem('token', resData.token);
-    localStorage.setItem('expiration', resData.expiration);
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    localStorage.setItem('expiration', expiration.toISOString());
 
     return redirect('/');
 }
